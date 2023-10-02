@@ -12,7 +12,7 @@ struct Student_of_mipt
     Student_of_mipt() : course(0), done_zadavalnik(0.0), time_until_deadline(0.0) {}
 
     //Constructor
-    Student_of_mipt(std::string name, int course, double done_zadavalnik, double time_until_deadline)
+    Student_of_mipt(const std::string& name, int course, double done_zadavalnik, double time_until_deadline)
         : name(name), course(course), done_zadavalnik(done_zadavalnik), time_until_deadline(time_until_deadline) {}
 
     //Destructor
@@ -22,7 +22,7 @@ struct Student_of_mipt
     }
 
     
-    void setInfo(std::string name, int course, double done_zadavalnik, double time_until_deadline)
+    void setInfo(const std::string& name, int course, double done_zadavalnik, double time_until_deadline)
     {
         this->name = name;
         this->course = course;

@@ -1,0 +1,95 @@
+#include <iostream>
+#include <vector>
+
+class MyClass {
+private:
+    int* arr;
+    int length;
+    std::vector<int> vec;
+public:
+    MyClass() : arr(nullptr), length(0) {}
+
+    MyClass(const MyClass& other) : length(other.length), vec(other.vec) {
+        if (other.arr) {
+            arr = new int[length];
+            for (int i = 0; i < length; i++) {
+                arr[i] = other.arr[i];
+            }
+        }
+        else {
+            arr = nullptr;
+        }
+    }
+
+    MyClass(MyClass&& other) : arr(other.arr), length(other.length), vec(std::move(other.vec)) {
+        other.arr = nullptr;
+        other.length = 0;
+    }
+
+    MyClass& operator=(const MyClass& other) {
+        if (this != &other) {
+            delete[] arr;
+            length = other.length;
+            vec = other.vec;
+            if (other.arr) {
+                arr = new int[length];
+                for (int i = 0; i < length; i++) {
+                    arr[i] = other.arr[i];
+                }
+            }
+            else {
+                arr = nullptr;
+            }
+        }
+        return *this;
+    }
+
+    MyClass& operator=(MyClass&& other) {
+        if (this != &other) {
+            delete[] arr;
+            arr = other.arr;
+            length = other.length;
+            vec = std::move(other.vec);
+            other.arr = nullptr;
+            other.length = 0;
+        }
+        return *this;
+    }
+
+    void setArray(int* arr, int length) {
+        delete[] this->arr;
+        this->arr = new int[length];
+        for (int i = 0; i < length; i++) {
+            this->arr[i] = arr[i];
+        }
+        this->length = length;
+    }
+
+    void printArray() {
+        if (arr) {
+            for (int i = 0; i < length; i++) {
+                std::cout << arr[i] << " ";
+            }
+            std::cout << std::endl;
+        }
+        else {
+            std::cout << "Array is empty." << std::endl;
+        }
+    }
+
+    void pushVector(int num) {
+        vec.push_back(num);
+    }
+
+    void printVector() {
+        if (!vec.empty()) {
+            for (int i = 0; i < vec.size(); i++) {
+                std::cout << vec[i] << " ";
+            }
+            std::cout << std::endl;
+        }
+        else {
+            std::cout << "Vector is empty." << std::endl;
+        }
+    }
+};
